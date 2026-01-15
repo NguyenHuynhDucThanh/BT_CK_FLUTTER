@@ -1,0 +1,19 @@
+class UserModel {
+  final String uid;
+  final String email;
+  final String role; // 'admin' hoặc 'user'
+
+  UserModel({required this.uid, required this.email, required this.role});
+
+  Map<String, dynamic> toMap() => {
+    'uid': uid,
+    'email': email,
+    'role': role,
+  };
+
+  factory UserModel.fromMap(Map<String, dynamic> map) => UserModel(
+    uid: map['uid'] ?? '',
+    email: map['email'] ?? '',
+    role: map['role'] ?? 'user',
+  );
+}
