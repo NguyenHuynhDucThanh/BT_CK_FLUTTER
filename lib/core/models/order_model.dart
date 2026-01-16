@@ -1,7 +1,9 @@
 class OrderModel {
   final String id;
   final String userId;
-  final String userEmail; // THÊM DÒNG NÀY
+  final String userEmail;
+  final String shippingAddress; // Địa chỉ giao hàng
+  final String phoneNumber;     // Số điện thoại
   final List<Map<String, dynamic>> items;
   final double totalAmount;
   final DateTime createdAt;
@@ -9,7 +11,9 @@ class OrderModel {
   OrderModel({
     required this.id,
     required this.userId,
-    required this.userEmail, // THÊM DÒNG NÀY
+    required this.userEmail,
+    required this.shippingAddress,
+    required this.phoneNumber,
     required this.items,
     required this.totalAmount,
     required this.createdAt,
@@ -17,7 +21,9 @@ class OrderModel {
 
   Map<String, dynamic> toMap() => {
     'userId': userId,
-    'userEmail': userEmail, // THÊM DÒNG NÀY
+    'userEmail': userEmail,
+    'shippingAddress': shippingAddress,
+    'phoneNumber': phoneNumber,
     'items': items,
     'totalAmount': totalAmount,
     'createdAt': createdAt,

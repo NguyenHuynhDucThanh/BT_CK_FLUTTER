@@ -266,6 +266,99 @@ class OrderHistoryScreen extends ConsumerWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    // DEBUG: Print shipping info
+                                    Builder(builder: (context) {
+                                      print('📦 Order data: shippingAddress=${order['shippingAddress']}, phoneNumber=${order['phoneNumber']}');
+                                      return const SizedBox.shrink();
+                                    }),
+                                    
+                                    // Thông tin giao hàng (nếu có)
+                                    if (order['shippingAddress'] != null || order['phoneNumber'] != null) ...[ 
+                                      Row(
+                                        children: [
+                                          Icon(Icons.local_shipping_outlined, size: 16, color: Colors.green.shade700),
+                                          const SizedBox(width: 8),
+                                          Text(
+                                            'Thông tin giao hàng',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.grey.shade800,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 12),
+                                      
+                                      // Địa chỉ giao hàng
+                                      if (order['shippingAddress'] != null) ...[
+                                        Row(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Icon(Icons.location_on_outlined, size: 16, color: Colors.grey.shade600),
+                                            const SizedBox(width: 8),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    'Địa chỉ giao hàng',
+                                                    style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.grey.shade600,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 2),
+                                                  Text(
+                                                    order['shippingAddress'],
+                                                    style: const TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w500,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 12),
+                                      ],
+                                      
+                                      // Số điện thoại
+                                      if (order['phoneNumber'] != null) ...[
+                                        Row(
+                                          children: [
+                                            Icon(Icons.phone_outlined, size: 16, color: Colors.grey.shade600),
+                                            const SizedBox(width: 8),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Số điện thoại',
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                    color: Colors.grey.shade600,
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 2),
+                                                Text(
+                                                  order['phoneNumber'],
+                                                  style: const TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 16),
+                                        Divider(color: Colors.grey.shade300, height: 1),
+                                        const SizedBox(height: 16),
+                                      ],
+                                    ],
+
+                                    // Chi tiết sản phẩm
                                     Row(
                                       children: [
                                         Icon(Icons.shopping_basket_outlined, size: 16, color: Colors.grey.shade700),
