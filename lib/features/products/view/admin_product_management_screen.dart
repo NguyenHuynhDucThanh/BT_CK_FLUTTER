@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import '../viewmodel/product_provider.dart';
 import '../../../core/models/product_model.dart';
 import '../../../core/utils/currency_utils.dart';
-import '../../orders/view/order_history_screen.dart';
+import '../../orders/view/admin_order_history_screen.dart';
 import '../../reports/view/report_screen.dart';
 import '../../auth/view/logout_button.dart';
 
@@ -31,11 +31,6 @@ class _AdminProductManagementScreenState extends ConsumerState<AdminProductManag
             expandedHeight: 140,
             floating: false,
             pinned: true,
-            leading: IconButton(
-              icon: const Icon(Icons.home_rounded, color: Colors.white),
-              tooltip: 'Trang chủ',
-              onPressed: () => Navigator.pop(context),
-            ),
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
                 decoration: BoxDecoration(
@@ -79,13 +74,6 @@ class _AdminProductManagementScreenState extends ConsumerState<AdminProductManag
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  Text(
-                                    'Thêm, sửa, xóa sản phẩm',
-                                    style: TextStyle(
-                                      color: Colors.white70,
-                                      fontSize: 13,
-                                    ),
-                                  ),
                                 ],
                               ),
                             ),
@@ -111,7 +99,7 @@ class _AdminProductManagementScreenState extends ConsumerState<AdminProductManag
                 tooltip: 'Lịch sử đơn hàng',
                 onPressed: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const OrderHistoryScreen()),
+                  MaterialPageRoute(builder: (context) => const AdminOrderHistoryScreen()),
                 ),
               ),
               const LogoutButton(),

@@ -5,7 +5,7 @@ import '../../auth/view/logout_button.dart';
 import '../../products/view/customer_shop_screen.dart';
 import '../../products/view/product_detail_screen.dart';
 import '../../products/viewmodel/product_provider.dart';
-import '../../orders/view/order_history_screen.dart';
+import '../../orders/view/user_order_history_screen.dart';
 import '../../cart/view/cart_screen.dart';
 import '../../../core/utils/currency_utils.dart';
 import '../../../core/models/product_model.dart';
@@ -153,7 +153,7 @@ class HomeScreen extends ConsumerWidget {
                         ),
                         onTap: () => Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const OrderHistoryScreen()),
+                          MaterialPageRoute(builder: (context) => const UserOrderHistoryScreen()),
                         ),
                       ),
                     ],

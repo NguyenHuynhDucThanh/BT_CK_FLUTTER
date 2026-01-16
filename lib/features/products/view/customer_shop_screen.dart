@@ -4,7 +4,7 @@ import '../viewmodel/product_provider.dart';
 import '../../../core/models/product_model.dart';
 import '../../../core/utils/currency_utils.dart';
 import 'product_detail_screen.dart';
-import '../../orders/view/order_history_screen.dart';
+import '../../orders/view/user_order_history_screen.dart';
 import '../../cart/view/cart_screen.dart';
 import '../../auth/view/logout_button.dart';
 
@@ -110,7 +110,7 @@ class _CustomerShopScreenState extends ConsumerState<CustomerShopScreen> {
                 tooltip: 'Lịch sử đơn hàng',
                 onPressed: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const OrderHistoryScreen()),
+                  MaterialPageRoute(builder: (context) => const UserOrderHistoryScreen()),
                 ),
               ),
               IconButton(

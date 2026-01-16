@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../auth/viewmodel/auth_provider.dart';
 import '../viewmodel/order_provider.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../core/utils/currency_utils.dart';
 
-class OrderHistoryScreen extends ConsumerWidget {
-  const OrderHistoryScreen({super.key});
+class UserOrderHistoryScreen extends ConsumerWidget {
+  const UserOrderHistoryScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final ordersAsync = ref.watch(ordersStreamProvider);
-    final currentUser = ref.watch(userProvider);
-    final isAdmin = currentUser?.role == 'admin';
 
     return Scaffold(
       body: CustomScrollView(
@@ -54,13 +51,13 @@ class OrderHistoryScreen extends ConsumerWidget {
                           ),
                         ),
                         const SizedBox(width: 16),
-                        Expanded(
+                        const Expanded(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                'Lịch sử đơn hàng',
+                              Text(
+                                'Đơn hàng của tôi',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 24,
@@ -69,11 +66,11 @@ class OrderHistoryScreen extends ConsumerWidget {
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                              const SizedBox(height: 4),
+                              SizedBox(height: 4),
                               Text(
-                                isAdmin ? 'Tất cả đơn hàng' : 'Đơn hàng của bạn',
+                                'Lịch sử mua hàng',
                                 style: TextStyle(
-                                  color: Colors.white.withOpacity(0.9),
+                                  color: Colors.white70,
                                   fontSize: 14,
                                 ),
                                 maxLines: 1,
@@ -119,7 +116,7 @@ class OrderHistoryScreen extends ConsumerWidget {
                           ),
                           const SizedBox(height: 24),
                           Text(
-                            isAdmin ? 'Chưa có đơn hàng nào' : 'Bạn chưa có đơn hàng nào',
+                            'Bạn chưa có đơn hàng nào',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -128,9 +125,7 @@ class OrderHistoryScreen extends ConsumerWidget {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            isAdmin
-                                ? 'Đơn hàng sẽ hiển thị tại đây'
-                                : 'Hãy bắt đầu mua sắm ngay!',
+                            'Hãy bắt đầu mua sắm ngay!',
                             style: TextStyle(
                               color: Colors.grey.shade500,
                               fontSize: 14,
@@ -184,45 +179,21 @@ class OrderHistoryScreen extends ConsumerWidget {
                             title: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                      decoration: BoxDecoration(
-                                        color: Colors.purple.shade50,
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Text(
-                                        '#$orderId',
-                                        style: TextStyle(
-                                          color: Colors.purple.shade700,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                if (isAdmin) ...[
-                                  const SizedBox(height: 6),
-                                  Row(
-                                    children: [
-                                      Icon(Icons.person_outline, size: 14, color: Colors.blue.shade600),
-                                      const SizedBox(width: 4),
-                                      Expanded(
-                                        child: Text(
-                                          order['userEmail'] ?? 'Chưa cập nhật',
-                                          style: TextStyle(
-                                            color: Colors.blue.shade700,
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ],
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                  decoration: BoxDecoration(
+                                    color: Colors.purple.shade50,
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
-                                ],
+                                  child: Text(
+                                    '#$orderId',
+                                    style: TextStyle(
+                                      color: Colors.purple.shade700,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                             subtitle: Padding(
@@ -266,14 +237,8 @@ class OrderHistoryScreen extends ConsumerWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    // DEBUG: Print shipping info
-                                    Builder(builder: (context) {
-                                      print('📦 Order data: shippingAddress=${order['shippingAddress']}, phoneNumber=${order['phoneNumber']}');
-                                      return const SizedBox.shrink();
-                                    }),
-                                    
                                     // Thông tin giao hàng (nếu có)
-                                    if (order['shippingAddress'] != null || order['phoneNumber'] != null) ...[ 
+                                    if (order['shippingAddress'] != null || order['phoneNumber'] != null) ...[
                                       Row(
                                         children: [
                                           Icon(Icons.local_shipping_outlined, size: 16, color: Colors.green.shade700),
@@ -289,7 +254,7 @@ class OrderHistoryScreen extends ConsumerWidget {
                                         ],
                                       ),
                                       const SizedBox(height: 12),
-                                      
+
                                       // Địa chỉ giao hàng
                                       if (order['shippingAddress'] != null) ...[
                                         Row(
@@ -323,7 +288,7 @@ class OrderHistoryScreen extends ConsumerWidget {
                                         ),
                                         const SizedBox(height: 12),
                                       ],
-                                      
+
                                       // Số điện thoại
                                       if (order['phoneNumber'] != null) ...[
                                         Row(
